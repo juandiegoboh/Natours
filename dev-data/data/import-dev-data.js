@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Tour = require('../../models/tourModel');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: '../../config.env' });
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
 
@@ -36,10 +36,15 @@ const deleteData = async () => {
   process.exit();
 };
 
-if (process.argv[2] === '--import') {
+const command = process.argv[2];
+
+if (command === '--import') {
   importData();
-} else if (process.argv[2] === '--delete') {
+} else if (command === '--delete') {
   deleteData();
+} else {
+  console.log(`No se reconoce el comando ${command}`);
+  process.exit();
 }
 
-console.log(process.argv);
+// console.log(process.argv);
